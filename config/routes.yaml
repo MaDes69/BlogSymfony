@@ -1,3 +1,39 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+# config/routes.yaml
+# L'accueil: c'est la rentrée de notre application et nous allons en profiter pour afficher la liste de nos articles
+
+homepage:
+  path: /
+  controller: App\Controller\BlogController::index
+
+# L'ajout d'un article
+article_add:
+  path: /add
+  controller: App\Controller\BlogController::add
+
+# La lecture d'un article: cette page va nous permettre d'afficher un article quand on clique dessus
+article_show:
+  path: /show/{id}
+  controller: App\Controller\BlogController::show
+
+# La modification d'un article
+article_edit:
+  path: /edit/{id}
+  controller: App\Controller\BlogController::edit
+  requirements:
+    id: '\d+' #ne peut etre qu'un entier '\d+'
+
+# La suppression d'un article
+article_remove:
+  path: /remove/{id}
+  controller: App\Controller\BlogController::remove
+  requirements:
+    id: '\d+'
+
+#admin
+admin:
+  path: /admin
+  controller: App\Controller\BlogController::admin

@@ -1,0 +1,51 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Accueil |
+	{{ parent() }}
+{% endblock %}
+
+{% block content %}
+	<div class="row mt-3">
+		<div class="col-md-8">
+			<div class="row">
+				{% for article in articles %}
+
+					<div class="card col-md-4 mb-3" style="width: 18rem;">
+						<p class="date">Ecrit le :
+							{{ article.PublicationDate|date('d/m/Y') }}
+							à
+							{{ article.PublicationDate|date('H:i') }}</p>
+
+						<img src="{{ article.picture }}" class="card-img-top" alt="{{ article.title }}">
+						<div class="card-body">
+							<h2 class="card-title">
+								{{ article.title }}
+							</h2>
+							<a href="{{ path('article_show', {'id': article.id})}}" class="btn btn-primary">En savoir plus</a>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="col-md-4">
+			<h2>Categories</h2>
+			<ul class="list-group">
+				{% for  category in categories %}
+					<li class="list-group-item d-flex justify-content-between align-items-center">
+						<a href="{{ path('article_show', {'id':category.id}) }}" style="text-decoration:none">{{ category.label }}
+							<span class="badge bg-primary rounded-pill">{{category.articles | length }}
+								article(s)</span>
+						</a>
+					</li>
+				{% endfor %}
+
+			</ul>
+		</div>
+
+		<div>
+			{{ knp_pagination_render(articles) }}
+		</div>
+
+
+	</div>
+{% endblock %}
